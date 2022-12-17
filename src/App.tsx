@@ -1,25 +1,26 @@
+import { Navigation } from './components/LeftPanel/Navigation/Navigation';
+import { RightPanel } from './components/RightPanel/RightPanel';
+import styled from 'styled-components';
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { initialState, reducer } from './store/store';
+
+const AppContainer = styled.div`
+  display: flex;
+  width: 100%;
+`
+
+export const ThemeContext = React.createContext({theme: 'dark'});
 
 function App() {
+  const [state, dispatch] = React.useReducer(reducer, initialState)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeContext.Provider value={{theme: state.theme}}>
+      <AppContainer>
+        <Navigation changeTheme={dispatch}/>
+        <RightPanel/>
+      </AppContainer>
+    </ThemeContext.Provider>
   );
 }
 
