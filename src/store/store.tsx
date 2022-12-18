@@ -1,6 +1,6 @@
 
-type State = {
-    theme: string
+export type State = {
+    theme: 'light' | 'dark'
 }
 
 export type Action = {

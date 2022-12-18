@@ -1,6 +1,6 @@
-export const theme = {
-    background: '#1913ae',
-    dark: {
+export const COLORS = {
+    'background': '#2026d2',
+    'dark': {
         background: {
             layer1: '#292E37',
             layer2: '#343C43',
@@ -22,7 +22,7 @@ export const theme = {
             }
         }
     },
-    light: {
+    'light': {
         background: {
             layer1: '#ffffff',
             layer2: '#D4D4D4',

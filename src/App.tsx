@@ -3,13 +3,20 @@ import { RightPanel } from './components/RightPanel/RightPanel';
 import styled from 'styled-components';
 import React from 'react';
 import { initialState, reducer } from './store/store';
+import { GlobalFonts } from './design/fonts';
 
 const AppContainer = styled.div`
   display: flex;
   width: 100%;
+  height: 100vh;
+  margin: 0px;
 `
 
-export const ThemeContext = React.createContext({theme: 'dark'});
+type ThemeType = {
+  theme: 'light' | 'dark'
+}
+
+export const ThemeContext = React.createContext<ThemeType>({theme: 'dark'});
 
 function App() {
   const [state, dispatch] = React.useReducer(reducer, initialState)
@@ -20,6 +27,7 @@ function App() {
         <Navigation changeTheme={dispatch}/>
         <RightPanel/>
       </AppContainer>
+      <GlobalFonts/>
     </ThemeContext.Provider>
   );
 }
