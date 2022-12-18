@@ -3,11 +3,17 @@ import styled, { css } from "styled-components";
 import { ThemeContext } from "../../../App";
 import { Button } from "../../../design/system/Button/Button";
 import { COLORS } from "../../../design/theme";
+import { Tab } from "../Tab/Tab";
 import RunQueryIcon from "./images/run-query.svg";
 
 type QueryThemePropsType = {
   currentTheme: "light" | "dark";
 };
+
+const TabQueryContainer = styled.div`
+  padding-top: 10px;
+  box-sizing: border-box;
+`
 
 const QueryContainer = styled.div<QueryThemePropsType>`
   padding: 15px;
@@ -15,6 +21,7 @@ const QueryContainer = styled.div<QueryThemePropsType>`
   box-sizing: border-box;
   border-radius: 0px 0px 8px 8px;
   position: relative;
+  height: calc(100% - 53px);
   ${({ currentTheme }) =>
     css`
       background: ${COLORS[currentTheme].background.layer2};
@@ -57,16 +64,19 @@ export const Query = () => {
   }
 
   return (
-    <QueryContainer currentTheme={theme}>
-      <QueryBox currentTheme={theme}>
-        <textarea rows={10} cols={100} defaultValue="enter SQL query here"/>
-      </QueryBox>
-      <RunQuery>
-        <Button handleClick={() => executeQuery()} buttonType="secondary">
-            <img src={RunQueryIcon} alt="run query" style={{marginRight: '5px'}}/>
-            Run query
-        </Button>
-      </RunQuery>
-    </QueryContainer>
+    <TabQueryContainer>
+      <Tab/>
+      <QueryContainer currentTheme={theme}>
+        <QueryBox currentTheme={theme}>
+          {/* <textarea rows={10} cols={100} defaultValue="enter SQL query here"/> */}
+        </QueryBox>
+        <RunQuery>
+          <Button handleClick={() => executeQuery()} buttonType="secondary">
+              <img src={RunQueryIcon} alt="run query" style={{marginRight: '5px'}}/>
+              Run query
+          </Button>
+        </RunQuery>
+      </QueryContainer>
+    </TabQueryContainer>
   );
 };

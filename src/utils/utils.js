@@ -17,7 +17,6 @@ export const addNewTab = (tabGroup, dispatch) => {
         ...DUMMY_NEW_TAB,
         title : `Untitled-${Number(newTabNumber) + 1}`
     }
-    console.log('NEW TAB', NEW_TAB);
     dispatch({type: 'SET_ALL_TABS', payload: [...tabGroup, NEW_TAB]});
 }
 

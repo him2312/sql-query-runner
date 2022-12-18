@@ -1,7 +1,6 @@
 import Split from "react-split";
 import styled, {css} from "styled-components";
 import { Query } from "./Query/Query";
-import { Tab } from "./Tab/Tab";
 import { Table } from "./Table/Table";
 import { COLORS } from "../../design/theme";
 import React from "react";
@@ -44,10 +43,9 @@ export const RightPanel = () => {
 
   return (
     <ExecutorContainer currentTheme={theme}>
-      <Tab />
       <Executor currentTheme={theme}>
         {/* TODO: Revisit the 100px height here */}
-        <Split direction="vertical" sizes={[40,60]} style={{ height: "calc(100vh - 100px)" }}>
+        <Split direction="vertical" sizes={[40,60]} minSize={200} style={{ height: '100vh' }}>
           <Query />
           <Table />
         </Split>

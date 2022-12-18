@@ -16,6 +16,7 @@ const TableContainer = styled.div<QueryThemePropsType>`
     `}
   padding: 10px 15px;
   border-radius: 8px;
+  box-sizing: border-box;
 `;
 
 const TableDataContainer = styled.div<QueryThemePropsType>`
@@ -25,6 +26,8 @@ const TableDataContainer = styled.div<QueryThemePropsType>`
     `}
   padding: 10px 15px;
   border-radius: 6px;
+  overflow-y: scroll;
+  height: calc(100% - 20px);
 `;
 
 const TableHead = styled.div`
@@ -51,7 +54,7 @@ const TableHeadRow = styled.div<QueryThemePropsType>`
 
 const TableData = styled.div`
   overflow-y: scroll;
-  height: 40vh;
+  height: calc(100% - 20px);
 `;
 
 const TableRow = styled.div`

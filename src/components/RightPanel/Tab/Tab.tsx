@@ -35,7 +35,6 @@ const TabHead = styled.div<QueryThemePropsType>`
 
 const TabGroup = styled.div`
     display: flex;
-    margin-top: 10px;
     margin-left: 10px;
 `
 
@@ -69,10 +68,6 @@ export const Tab = () => {
     setSelectedTab(DUMMY_TAB_DATA[0].title)
   }, [storeDispatch])
 
-  useEffect(() => {
-    console.log('Tab updated', tabData);
-  }, [tabData])
-
   const addNewTabGroup = () => {
     addNewTab([...tabData], storeDispatch);
   }
@@ -89,7 +84,7 @@ export const Tab = () => {
     <TabGroup>
        <UserTabGroup>
         {tabData?.map((tabData) => (
-            <TabHead currentTheme={theme} onClick={() => openTab(tabData.title)} isSelected={selectedTab === tabData.title}>
+            <TabHead key={tabData.title} currentTheme={theme} onClick={() => openTab(tabData.title)} isSelected={selectedTab === tabData.title}>
                 {tabData.title}
                 <img src={CrossIcon} alt="cross" onClick={() => closeTab(tabData.title)}/>
             </TabHead>

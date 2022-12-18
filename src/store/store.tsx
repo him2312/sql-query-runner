@@ -33,7 +33,6 @@ export const reducer = (state: State, action: Action) => {
                 theme: action.payload
             }
         case 'SET_TABLE_DATA':
-            console.log('payload', action.payload)
             return {
                 ...state,
                 table: {
@@ -41,7 +40,6 @@ export const reducer = (state: State, action: Action) => {
                 }
             }
         case 'SET_ALL_TABS': {
-            console.log('Store', action);
             return {
                 ...state,
                 tabs: [...action.payload]
