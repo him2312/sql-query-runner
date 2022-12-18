@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import styled, { css } from 'styled-components';
 import CrossIcon from '../../../shared/images/cross.svg';
 import PlusIcon from '../../../shared/images/plus.svg';

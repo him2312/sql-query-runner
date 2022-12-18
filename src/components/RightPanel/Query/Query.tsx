@@ -6,6 +6,7 @@ import { Button } from "../../../design/system/Button/Button";
 import { COLORS } from "../../../design/theme";
 import { QueryType } from "../../../store/store";
 import { getFilteredDataFromTable, queryExecutor, returnQueryMapping, SQL_QUERY_VALIDATOR } from "../../../utils/query-execute";
+import { getSQLQueryCheat } from "../../../utils/shortcut";
 import { debounce } from "../../../utils/utils";
 import { Tab } from "../Tab/Tab";
 import RunQueryIcon from "./images/run-query.svg";
@@ -113,12 +114,20 @@ export const Query = () => {
     storeDispatch({type: 'SET_QUERY', payload: actionPayload})    
   }, 500)
 
+  const fillCannedResponse = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      let shortcutKeyword = (event.target as HTMLInputElement).value;
+      formatAndSetSqlQuery(getSQLQueryCheat(shortcutKeyword))
+    }
+  };
+
   return (
     <TabQueryContainer>
       <Tab/>
       <QueryContainer currentTheme={theme}>
         <QueryBox currentTheme={theme}>
-          <textarea value={sqlQuery} placeholder="enter SQL query here" onChange={(e) => formatAndSetSqlQuery(e.target.value)}/>
+          <textarea value={sqlQuery} placeholder="enter SQL query here" onKeyDown={(e) => fillCannedResponse(e)} onChange={(e) => formatAndSetSqlQuery(e.target.value)}/>
         </QueryBox>
         <RunQuery>
           <Button disabled={!SQL_QUERY_VALIDATOR.test(sqlQuery)} handleClick={() => executeQuery()} buttonType="secondary">
