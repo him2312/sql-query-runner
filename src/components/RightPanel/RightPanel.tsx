@@ -19,9 +19,12 @@ const ExecutorContainer = styled.div<QueryThemePropsType>`
   `}
 `;
 
-const Executor = styled.div`
+const Executor = styled.div<QueryThemePropsType>`
   .gutter {
-    background-color: #eee;
+    ${({ currentTheme }) =>
+    css`
+      background: ${COLORS[currentTheme].background.layer3};
+    `}
     background-repeat: no-repeat;
     background-position: 50%;
     cursor: row-resize;
@@ -42,7 +45,7 @@ export const RightPanel = () => {
   return (
     <ExecutorContainer currentTheme={theme}>
       <Tab />
-      <Executor>
+      <Executor currentTheme={theme}>
         {/* TODO: Revisit the 100px height here */}
         <Split direction="vertical" sizes={[40,60]} style={{ height: "calc(100vh - 100px)" }}>
           <Query />

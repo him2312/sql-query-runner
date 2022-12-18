@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { ThemeContext } from "../../../App";
 import { DATABASE_TYPE } from "../../../data/key_data_mapping";
 import { COLORS } from "../../../design/theme";
-import { ts14m } from "../../../design/fonts/typography";
+import { ts12m, ts14m } from "../../../design/fonts/typography";
 
 type QueryThemePropsType = {
   currentTheme: "light" | "dark";
@@ -29,21 +29,23 @@ const TableDataContainer = styled.div<QueryThemePropsType>`
 
 const TableHead = styled.div`
   display: flex;
-  overflow-x: scroll;
-  width: 100%;
-  border-radius: 6px 6px 0px 0px;
+  border-radius: 6px;
 `;
 
 const TableHeadRow = styled.div<QueryThemePropsType>`
-  width: 20%;
   padding: 12px 6px;
-  text-align: center;
+  flex: 1;
+  min-width: 100px;
   ${ts14m}
   ${({ currentTheme }) =>
   css`
     background: ${COLORS[currentTheme].background.layer4};
     color: ${COLORS[currentTheme].text.primary};
     border-bottom: 1px solid ${COLORS[currentTheme].border};
+
+    :not(:first-child) {
+        border-left: 1px solid ${COLORS[currentTheme].border};;
+    }
   `}
 `;
 
@@ -56,8 +58,24 @@ const TableRow = styled.div`
   display: flex;
 `;
 
-const TableRowData = styled.div`
-  width: 20%;
+const TableRowData = styled.div<QueryThemePropsType>`
+    flex: 1;
+    min-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 12px 6px;
+    ${ts12m}
+    ${({ currentTheme }) =>
+    css`
+    background: ${COLORS[currentTheme].background.layer3};
+    color: ${COLORS[currentTheme].text.primary};
+    border-bottom: 1px solid ${COLORS[currentTheme].border};
+
+        :not(:first-child) {
+            border-left: 1px solid ${COLORS[currentTheme].border};;
+        }
+    `}
 `;
 
 export const Table = () => {
@@ -77,7 +95,7 @@ export const Table = () => {
           {data.map((value: DATABASE_TYPE, index) => (
             <TableRow key={index}>
               {(Object.values(value) as Array<string>).map((data) => (
-                <TableRowData>{data}</TableRowData>
+                <TableRowData currentTheme={theme}>{String(data)}</TableRowData>
               ))}
             </TableRow>
           ))}
