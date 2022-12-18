@@ -1,10 +1,12 @@
 
+import React from 'react';
 import styled from 'styled-components';
-import { ts14sb } from '../../../design/fonts/typography';
+import { StoreContext } from '../../../App';
+import { ts12m, ts14sb } from '../../../design/fonts/typography';
 import { COLORS } from '../../../design/theme';
 import DropdownIcon from '../../../shared/images/down-arrow.svg';
 import ShareIcon from '../../../shared/images/share.svg';
-
+import QueryIcon from './images/select.svg';
 
 const CollectionContainer = styled.div`
     margin-top: 20px;
@@ -29,6 +31,7 @@ const Header = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 8px;
 `
 
 const HeaderLeft = styled.div`
@@ -56,8 +59,33 @@ const Sync = styled.div`
     }
 `
 
+const QueryData = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
+const SavedQuery = styled.div`
+    ${ts12m}
+    color: ${COLORS.light.text.primary};
+    padding: 10px 0px;
+    display: flex;
+    align-items: center;
+    img {
+        width: 30px;
+        height: 12px;
+        margin-right: 4px;
+    }
+`
+
+const QueryTitle = styled.div`
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+`
+
 export const Collection = () => {
-    // TODO: Put some dummy queries here
+    const {bookmarkedQuery} = React.useContext(StoreContext);
+
     return (
         <CollectionContainer>
             <Header>
@@ -66,13 +94,23 @@ export const Collection = () => {
                         <img src={DropdownIcon} alt="show all tables" />
                     </Toggle>
                     <Title>
-                        QUERIES
+                        SAVED
                     </Title>
                 </HeaderLeft>
                 <Sync>
                     <img src={ShareIcon} alt="share collection" />
                 </Sync>
             </Header>
+            <QueryData>
+                {
+                    (Object.keys(bookmarkedQuery) as any).map((query: string) => (
+                        <SavedQuery>
+                            <img src={QueryIcon} alt="select" />
+                            <QueryTitle>{query}</QueryTitle>
+                        </SavedQuery>
+                    ))
+                }
+            </QueryData>
         </CollectionContainer>
     )
 }

@@ -7,9 +7,12 @@ import { COLORS } from "../../../design/theme";
 import { QueryType } from "../../../store/store";
 import { getFilteredDataFromTable, queryExecutor, returnQueryMapping, SQL_QUERY_VALIDATOR } from "../../../utils/query-execute";
 import { getSQLQueryCheat } from "../../../utils/shortcut";
-import { debounce } from "../../../utils/utils";
+import { debounce, stringExistsInArray } from "../../../utils/utils";
 import { Tab } from "../Tab/Tab";
 import RunQueryIcon from "./images/run-query.svg";
+import BookmarkedIcon from '../../../shared/images/bookmarked.png';
+import EmptyDarkBookmarkIcon from '../../../shared/images/empty-dark-bookmark.png';
+import EmptyLightBookmarkIcon from '../../../shared/images/empty-light-bookmark.png';
 
 type QueryThemePropsType = {
   currentTheme: "light" | "dark"
@@ -73,8 +76,19 @@ const RunQuery = styled.div`
     width: max-content;
 `;
 
+const Bookmark = styled.div`
+   position: absolute;
+   top: -5px;
+   right: 25px;
+   cursor: pointer;
+   img {
+    height: 30px;
+    width: 30px;
+   }
+`
+
 export const Query = () => {
-  const { theme, selectedTab, query, storeDispatch } = React.useContext(StoreContext);
+  const { theme, selectedTab, query, storeDispatch, bookmarkedQuery } = React.useContext(StoreContext);
 
   const [sqlQuery, setSqlQuery] = useState('');
 
@@ -122,10 +136,36 @@ export const Query = () => {
     }
   };
 
+  const saveQueryToBookmark = () => {
+    if (SQL_QUERY_VALIDATOR.test(sqlQuery)) {
+      storeDispatch({
+        type: 'SET_BOOKMARKED_QUERY',
+        payload: {
+          ...bookmarkedQuery,
+          [sqlQuery]: true
+        }
+      })
+    } else {
+      console.log('Nothing to bookmark');
+    }
+  }
+
+  const isBookmarked = stringExistsInArray(sqlQuery, Object.keys(bookmarkedQuery));
   return (
     <TabQueryContainer>
       <Tab/>
       <QueryContainer currentTheme={theme}>
+        <Bookmark onClick={saveQueryToBookmark}>
+          {
+            isBookmarked ? <>
+              <img src={BookmarkedIcon} alt="bookmarked" />
+            </> : <>
+              {
+                <img src={theme === 'light' ? EmptyDarkBookmarkIcon : EmptyLightBookmarkIcon} alt="bookmarked" />
+              }
+            </>
+          }
+        </Bookmark>
         <QueryBox currentTheme={theme}>
           <textarea value={sqlQuery} placeholder="enter SQL query here" onKeyDown={(e) => fillCannedResponse(e)} onChange={(e) => formatAndSetSqlQuery(e.target.value)}/>
         </QueryBox>

@@ -5,7 +5,8 @@ export type State = {
     table: {},
     tabs: TabType[],
     selectedTab: '',
-    query: {}
+    query: {},
+    bookmarkedQuery: {}
 }
 
 export type TabType = {
@@ -18,7 +19,7 @@ export type QueryType = {
     tableData: DATABASE_TYPE[]
 }
 
-export type DISPATCH_TYPE = 'CHANGE_THEME' | 'SET_TABLE_DATA' | 'SET_ALL_TABS' | 'SET_QUERY' | 'SET_SELECTED_TAB'
+export type DISPATCH_TYPE = 'CHANGE_THEME' | 'SET_TABLE_DATA' | 'SET_ALL_TABS' | 'SET_QUERY' | 'SET_SELECTED_TAB' | 'SET_BOOKMARKED_QUERY'
 
 export type Action = {
     type: DISPATCH_TYPE,
@@ -30,7 +31,8 @@ export const initialState: State = {
     table: {},
     selectedTab: '',
     tabs: [],
-    query: {}
+    query: {},
+    bookmarkedQuery: {}
 };
 
 export const reducer = (state: State, action: Action) => {
@@ -64,6 +66,14 @@ export const reducer = (state: State, action: Action) => {
                 ...state,
                 query: {
                     ...state.query,
+                    ...action.payload
+                }
+            }
+        }
+        case 'SET_BOOKMARKED_QUERY': {
+            return {
+                ...state,
+                bookmarkedQuery: {
                     ...action.payload
                 }
             }

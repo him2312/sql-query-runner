@@ -22,7 +22,8 @@ type StoreType = {
   },
   selectedTab: string,
   tabData: TabType[],
-  query: {}
+  query: {},
+  bookmarkedQuery: {}
 };
 
 export const StoreContext = React.createContext<StoreType>({
@@ -34,7 +35,8 @@ export const StoreContext = React.createContext<StoreType>({
   },
   selectedTab: '',
   tabData: [],
-  query: {}
+  query: {},
+  bookmarkedQuery: []
 });
 
 function App() {
@@ -48,7 +50,8 @@ function App() {
         tableData: state.table,
         tabData: state.tabs,
         selectedTab: state.selectedTab,
-        query: state.query
+        query: state.query,
+        bookmarkedQuery: state.bookmarkedQuery
       }}
     >
       <AppContainer>

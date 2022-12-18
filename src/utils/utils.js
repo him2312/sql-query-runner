@@ -29,6 +29,13 @@ export const removeTab = (tabGroup, tabTitle, dispatch) => {
     }
 }
 
+export const stringExistsInArray = (string, array) => {
+    if (string === '' || array.length === 0) {
+        return false;
+    }
+    return array.includes(string);
+}
+
 let timer;
 export const debounce = (func, timeout = 1000) => {
   return (...args) => {
