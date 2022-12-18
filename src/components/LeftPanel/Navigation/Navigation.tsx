@@ -5,12 +5,14 @@ import { Toggle } from "../../../design/system/Toggle/Toggle";
 import { COLORS } from "../../../design/theme";
 import { Action } from "../../../store/store";
 import AtlanNavLogo from "./images/atlan-nav-logo.svg";
-import MinimizeIcon from "./images/toggle.svg";
+import MinimizeIcon from "./images/minimize.svg";
 import Hamburger from "./images/hamburger.png";
 import { Button } from "../../../design/system/Button/Button";
 import AddButton from "../../../shared/images/cross.svg";
 import AddButtonMinimal from "../../../shared/images/cross-minimal.png";
 import { NeedMoreHelp } from "../NeedMoreHelp/NeedMoreHelp";
+import { TableSelection } from "../TableSelection/TableSelection";
+import { Collection } from "../Collections/Collections";
 
 const NavigationContainer = styled.div`
   flex: 1;
@@ -155,6 +157,13 @@ export const Navigation = (props: NavigationProps) => {
             </>
           )}
         </Button>
+
+        {!isCollapsed && (
+          <>
+            <TableSelection />
+            <Collection />
+          </>
+        )}
       </TopSection>
 
       <BottomSection>
@@ -167,7 +176,7 @@ export const Navigation = (props: NavigationProps) => {
             })
           }
         />
-        <NeedMoreHelp shrink={isCollapsed}/>
+        <NeedMoreHelp shrink={isCollapsed} />
       </BottomSection>
     </NavigationContainer>
   );

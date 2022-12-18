@@ -11,7 +11,10 @@ const textStyleMixin = (size, family, letterSpacing, lineHeight) => {
 };
 
 //Text styles
+export const ts12m = textStyleMixin(12, 'mont-medium', 0, 14);
 export const ts14m = textStyleMixin(14, 'mont-medium', 0, 16);
+export const ts14sb = textStyleMixin(14, 'mont-semibold', 2, 16);
+
 export const ts16r = textStyleMixin(16, 'mont-regular', 0, 18);
 
 //Button Styles

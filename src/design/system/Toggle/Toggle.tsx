@@ -6,11 +6,15 @@ import { COLORS } from "../../theme";
 import { ts16r } from "../../fonts/typography";
 
 const ThemeSwitch = styled.div`
-    padding: 10px;
+    padding: 15px 0px 15px 0px;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
     transition: 0.3s;
+
+    border-top: 1px solid #7a7a7a;
+    margin: 0px 10px;
+
     label {
         width: 60px;
         height: 30px;
