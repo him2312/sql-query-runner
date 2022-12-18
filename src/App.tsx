@@ -4,6 +4,7 @@ import styled from "styled-components";
 import React from "react";
 import { Action, initialState, reducer } from "./store/store";
 import { GlobalFonts } from "./design/fonts";
+import {TabType} from './store/store';
 
 const AppContainer = styled.div`
   display: flex;
@@ -14,11 +15,12 @@ const AppContainer = styled.div`
 
 type ThemeType = {
   theme: "light" | "dark";
-  storeDispatch: React.Dispatch<Action>;
+  storeDispatch: React.Dispatch<Action>,
   tableData: {
     header: {};
     data: [];
-  };
+  },
+  tabData: TabType[]
 };
 
 export const ThemeContext = React.createContext<ThemeType>({
@@ -28,6 +30,7 @@ export const ThemeContext = React.createContext<ThemeType>({
     header: {},
     data: [],
   },
+  tabData: []
 });
 
 function App() {
@@ -39,6 +42,7 @@ function App() {
         theme: state.theme,
         storeDispatch: dispatch,
         tableData: state.table,
+        tabData: state.tabs
       }}
     >
       <AppContainer>

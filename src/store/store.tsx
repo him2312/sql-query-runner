@@ -1,20 +1,28 @@
 
 export type State = {
     theme: 'light' | 'dark',
-    table: {}
+    table: {},
+    tabs: TabType[]
+    query: {}
 }
 
-export type DISPATCH_TYPE = 'CHANGE_THEME' | 'SET_TABLE_DATA'
+export type TabType = {
+    title: string,
+    id: string
+}
+
+export type DISPATCH_TYPE = 'CHANGE_THEME' | 'SET_TABLE_DATA' | 'SET_ALL_TABS'
 
 export type Action = {
     type: DISPATCH_TYPE,
     payload: any
 }
 
-
 export const initialState: State = {
     theme: 'dark',
-    table: {}
+    table: {},
+    tabs: [],
+    query: {}
 };
 
 export const reducer = (state: State, action: Action) => {
@@ -32,6 +40,13 @@ export const reducer = (state: State, action: Action) => {
                     ...action.payload
                 }
             }
+        case 'SET_ALL_TABS': {
+            console.log('Store', action);
+            return {
+                ...state,
+                tabs: [...action.payload]
+            }
+        }
         default: 
             return state;
     }

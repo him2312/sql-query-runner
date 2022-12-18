@@ -13,6 +13,7 @@ import AddButtonMinimal from "../../../shared/images/cross-minimal.png";
 import { NeedMoreHelp } from "../NeedMoreHelp/NeedMoreHelp";
 import { TableSelection } from "../TableSelection/TableSelection";
 import { Collection } from "../Collections/Collections";
+import { addNewTab } from "../../../utils/utils";
 
 const NavigationContainer = styled.div`
   flex: 1;
@@ -98,7 +99,7 @@ type NavigationProps = {
 };
 
 export const Navigation = (props: NavigationProps) => {
-  const currentTheme = React.useContext(ThemeContext);
+  const {theme, tabData, storeDispatch} = React.useContext(ThemeContext);
   const navBarRef = React.createRef<HTMLDivElement>();
 
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -121,6 +122,10 @@ export const Navigation = (props: NavigationProps) => {
     setIsCollapsed(false);
   };
 
+  const addNewTabToTabGroup = () => {
+    addNewTab([...tabData], storeDispatch);
+  }
+
   return (
     <NavigationContainer ref={navBarRef}>
       <TopSection shrink={isCollapsed}>
@@ -139,7 +144,7 @@ export const Navigation = (props: NavigationProps) => {
           )}
         </TitleSection>
 
-        <Button handleClick={() => console.log("click")} buttonType="primary">
+        <Button handleClick={addNewTabToTabGroup} buttonType="primary">
           {isCollapsed ? (
             <img
               style={{ maxWidth: "30px", margin: "auto" }}
@@ -172,7 +177,7 @@ export const Navigation = (props: NavigationProps) => {
           handleClick={() =>
             props.changeTheme({
               type: "CHANGE_THEME",
-              payload: currentTheme.theme === "dark" ? "light" : "dark",
+              payload: theme === "dark" ? "light" : "dark",
             })
           }
         />
