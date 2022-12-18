@@ -8,14 +8,16 @@ type ButtonProps = {
   handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   buttonType: "primary" | "secondary";
   children: React.ReactNode;
-  width?: number
+  width?: number;
+  disabled?: boolean;
 };
 
 type ButtonContainerProps = {
   buttonType: "primary" | "secondary";
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  currentTheme: "light" | "dark"
-  width?: number
+  currentTheme: "light" | "dark";
+  width?: number;
+  disabled?: boolean;
 };
 
 const ButtonContainer = styled.button<ButtonContainerProps>`
@@ -33,13 +35,24 @@ const ButtonContainer = styled.button<ButtonContainerProps>`
     opacity: 0.7;
     transform: scale(0.95);
   }
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      :disabled {
+        pointer-events: none;
+        opacity: 0.6;
+      }
+    `}
+
   img {
     max-width: 30px;
   }
 
-  ${({width}) => width && css`
-    width: ${width}px;
-  `}
+  ${({ width }) =>
+    width &&
+    css`
+      width: ${width}px;
+    `}
 
   ${({ buttonType, currentTheme }) =>
     buttonType === "primary" &&
@@ -65,6 +78,7 @@ export const Button = (props: ButtonProps) => {
       buttonType={props.buttonType}
       currentTheme={theme}
       width={props.width}
+      disabled={props.disabled}
     >
       {props.children}
     </ButtonContainer>

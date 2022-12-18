@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { ThemeContext } from "../../../App";
+import { ts12m } from "../../../design/fonts/typography";
 import { Button } from "../../../design/system/Button/Button";
 import { COLORS } from "../../../design/theme";
+import { getFilteredDataFromTable, queryExecutor, SQL_QUERY_VALIDATOR } from "../../../utils/query-execute";
 import { Tab } from "../Tab/Tab";
 import RunQueryIcon from "./images/run-query.svg";
 
 type QueryThemePropsType = {
-  currentTheme: "light" | "dark";
+  currentTheme: "light" | "dark"
 };
 
 const TabQueryContainer = styled.div`
@@ -45,6 +47,9 @@ const QueryBox = styled.div<QueryThemePropsType>`
     resize: none;
     border: none;
     outline: none;
+    height: 100%;
+    width: 100%;
+    ${ts12m}
    }
 `;
 
@@ -57,10 +62,21 @@ const RunQuery = styled.div`
 `;
 
 export const Query = () => {
-  const { theme } = React.useContext(ThemeContext);
+  const { theme, storeDispatch } = React.useContext(ThemeContext);
+
+  const [sqlQuery, setSqlQuery] = useState('');
 
   const executeQuery = () => {
-    console.log('Fetch database');
+    const result = queryExecutor(sqlQuery);
+    const filteredTableData = getFilteredDataFromTable(result?.tableName, result?.fields)
+    storeDispatch({
+      type: 'SET_TABLE_DATA',
+      payload: filteredTableData
+    })
+  }
+
+  const formatAndSetSqlQuery = (value: string) => {
+    setSqlQuery(value);
   }
 
   return (
@@ -68,10 +84,10 @@ export const Query = () => {
       <Tab/>
       <QueryContainer currentTheme={theme}>
         <QueryBox currentTheme={theme}>
-          {/* <textarea rows={10} cols={100} defaultValue="enter SQL query here"/> */}
+          <textarea value={sqlQuery} placeholder="enter SQL query here" onChange={(e) => formatAndSetSqlQuery(e.target.value)}/>
         </QueryBox>
         <RunQuery>
-          <Button handleClick={() => executeQuery()} buttonType="secondary">
+          <Button disabled={!SQL_QUERY_VALIDATOR.test(sqlQuery)} handleClick={() => executeQuery()} buttonType="secondary">
               <img src={RunQueryIcon} alt="run query" style={{marginRight: '5px'}}/>
               Run query
           </Button>
