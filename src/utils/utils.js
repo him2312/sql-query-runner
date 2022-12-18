@@ -28,3 +28,11 @@ export const removeTab = (tabGroup, tabTitle, dispatch) => {
         dispatch({type: 'SET_ALL_TABS', payload: [...allTabsDuplicate]});
     }
 }
+
+let timer;
+export const debounce = (func, timeout = 1000) => {
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => { func.apply(this, args); }, timeout);
+  };
+}

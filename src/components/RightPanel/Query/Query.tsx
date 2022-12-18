@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
-import { ThemeContext } from "../../../App";
+import { StoreContext } from "../../../App";
 import { ts12m } from "../../../design/fonts/typography";
 import { Button } from "../../../design/system/Button/Button";
 import { COLORS } from "../../../design/theme";
-import { getFilteredDataFromTable, queryExecutor, SQL_QUERY_VALIDATOR } from "../../../utils/query-execute";
+import { QueryType } from "../../../store/store";
+import { getFilteredDataFromTable, queryExecutor, returnQueryMapping, SQL_QUERY_VALIDATOR } from "../../../utils/query-execute";
+import { debounce } from "../../../utils/utils";
 import { Tab } from "../Tab/Tab";
 import RunQueryIcon from "./images/run-query.svg";
 
@@ -50,6 +52,15 @@ const QueryBox = styled.div<QueryThemePropsType>`
     height: 100%;
     width: 100%;
     ${ts12m}
+
+    ${({ currentTheme }) =>
+    css`
+      color: ${COLORS[currentTheme].text.primary};
+
+      &:placeholder {
+        color:  ${COLORS[currentTheme].text.secondary};
+      }
+    `}
    }
 `;
 
@@ -62,9 +73,18 @@ const RunQuery = styled.div`
 `;
 
 export const Query = () => {
-  const { theme, storeDispatch } = React.useContext(ThemeContext);
+  const { theme, selectedTab, query, storeDispatch } = React.useContext(StoreContext);
 
   const [sqlQuery, setSqlQuery] = useState('');
+
+  useEffect(() => {
+    if(query) {
+      let queryData = returnQueryMapping(selectedTab, query);
+      setSqlQuery(queryData?.sqlQuery);
+
+      storeDispatch({type: 'SET_TABLE_DATA', payload: queryData.tableData})
+    }
+  }, [query, selectedTab, storeDispatch])
 
   const executeQuery = () => {
     const result = queryExecutor(sqlQuery);
@@ -73,11 +93,25 @@ export const Query = () => {
       type: 'SET_TABLE_DATA',
       payload: filteredTableData
     })
+    saveQueryForTab(sqlQuery, filteredTableData);
   }
 
   const formatAndSetSqlQuery = (value: string) => {
     setSqlQuery(value);
+    saveQueryForTab(value);
   }
+
+  const saveQueryForTab = debounce((sqlQuery: string, tableData: []) => {
+    let savedQuery: QueryType = {
+      sqlQuery,
+      tableData
+    }
+
+    let actionPayload: any = {};
+    actionPayload[selectedTab] = savedQuery;
+
+    storeDispatch({type: 'SET_QUERY', payload: actionPayload})    
+  }, 500)
 
   return (
     <TabQueryContainer>

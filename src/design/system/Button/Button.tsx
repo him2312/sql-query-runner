@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import styled, { css } from "styled-components";
-import { ThemeContext } from "../../../App";
+import { StoreContext } from "../../../App";
 import { tsBtn } from "../../fonts/typography";
 import { COLORS } from "../../theme";
 
@@ -70,7 +70,7 @@ const ButtonContainer = styled.button<ButtonContainerProps>`
 `;
 
 export const Button = (props: ButtonProps) => {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useContext(StoreContext);
 
   return (
     <ButtonContainer

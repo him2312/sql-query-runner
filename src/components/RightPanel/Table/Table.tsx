@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { ThemeContext } from "../../../App";
+import { StoreContext } from "../../../App";
 import { DATABASE_TYPE } from "../../../data/key_data_mapping";
 import { COLORS } from "../../../design/theme";
 import { ts12m, ts14m } from "../../../design/fonts/typography";
@@ -82,7 +82,7 @@ const TableRowData = styled.div<QueryThemePropsType>`
 `;
 
 export const Table = () => {
-  const { theme, tableData } = React.useContext(ThemeContext);
+  const { theme, tableData } = React.useContext(StoreContext);
 
   const { header = [], data = [] } = tableData;
 

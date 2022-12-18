@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import CrossIcon from '../../../shared/images/cross.svg';
 import PlusIcon from '../../../shared/images/plus.svg';
 import { COLORS } from "../../../design/theme";
-import { ThemeContext } from "../../../App";
+import { StoreContext } from "../../../App";
 import { ts12m } from "../../../design/fonts/typography";
 import { DUMMY_TAB_DATA } from "../../../data/tab_data";
 import { addNewTab, removeTab } from "../../../utils/utils";
@@ -60,12 +60,11 @@ const AddNewTab = styled.div`
 `
 
 export const Tab = () => {
-  const {theme, tabData, storeDispatch} = useContext(ThemeContext);
-  const [selectedTab, setSelectedTab] = useState('');
+  const {theme, tabData, storeDispatch, selectedTab} = useContext(StoreContext);
 
   useEffect(() => {
     storeDispatch({type: 'SET_ALL_TABS', payload: DUMMY_TAB_DATA});
-    setSelectedTab(DUMMY_TAB_DATA[0].title)
+    storeDispatch({type: 'SET_SELECTED_TAB', payload: DUMMY_TAB_DATA[0].title});
   }, [storeDispatch])
 
   const addNewTabGroup = () => {
@@ -73,7 +72,7 @@ export const Tab = () => {
   }
 
   const openTab = (tabTitle: string) => {
-    setSelectedTab(tabTitle)
+    storeDispatch({type: 'SET_SELECTED_TAB', payload: tabTitle});
   }
 
   const closeTab = (tabTitle: string) => {

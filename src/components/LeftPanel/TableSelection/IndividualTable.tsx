@@ -4,7 +4,7 @@ import { ts12m, ts14m } from "../../../design/fonts/typography";
 import { COLORS } from "../../../design/theme";
 import TableIcon from "../../../shared/images/database.svg";
 import styled from "styled-components";
-import { ThemeContext } from "../../../App";
+import { StoreContext } from "../../../App";
 
 type TableType = {
     tableTitle: TableName;
@@ -51,7 +51,7 @@ type TableType = {
   
   export const IndividualTable = (props: TableType) => {
     const [tableMetadata, setTableMetadata] = useState({});
-    const {storeDispatch} = useContext(ThemeContext);
+    const {storeDispatch} = useContext(StoreContext);
   
     const toggleTableData = (tableTitle: TableName) => {
       if (props.selectedTable === tableTitle) {

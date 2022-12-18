@@ -1,8 +1,10 @@
+import { DATABASE_TYPE } from "../data/key_data_mapping"
 
 export type State = {
     theme: 'light' | 'dark',
     table: {},
-    tabs: TabType[]
+    tabs: TabType[],
+    selectedTab: '',
     query: {}
 }
 
@@ -11,7 +13,12 @@ export type TabType = {
     id: string
 }
 
-export type DISPATCH_TYPE = 'CHANGE_THEME' | 'SET_TABLE_DATA' | 'SET_ALL_TABS'
+export type QueryType = {
+    sqlQuery: string,
+    tableData: DATABASE_TYPE[]
+}
+
+export type DISPATCH_TYPE = 'CHANGE_THEME' | 'SET_TABLE_DATA' | 'SET_ALL_TABS' | 'SET_QUERY' | 'SET_SELECTED_TAB'
 
 export type Action = {
     type: DISPATCH_TYPE,
@@ -21,6 +28,7 @@ export type Action = {
 export const initialState: State = {
     theme: 'dark',
     table: {},
+    selectedTab: '',
     tabs: [],
     query: {}
 };
@@ -43,6 +51,21 @@ export const reducer = (state: State, action: Action) => {
             return {
                 ...state,
                 tabs: [...action.payload]
+            }
+        }
+        case 'SET_SELECTED_TAB': {
+            return {
+                ...state,
+                selectedTab: action.payload
+            }
+        }
+        case 'SET_QUERY': {
+            return {
+                ...state,
+                query: {
+                    ...state.query,
+                    ...action.payload
+                }
             }
         }
         default: 

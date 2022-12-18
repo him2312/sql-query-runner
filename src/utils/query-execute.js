@@ -61,3 +61,13 @@ export const removeKeysFromObject = (allowedKeys, targetObj) => {
       };
     }, {});
 };
+
+export const returnQueryMapping = (tabTitle, queryMapping) => {
+    if (queryMapping[tabTitle]) {
+        return queryMapping[tabTitle];
+    }
+    return {
+        sqlQuery: '',
+        tableData: []
+    }
+}

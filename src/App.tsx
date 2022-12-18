@@ -13,36 +13,42 @@ const AppContainer = styled.div`
   margin: 0px;
 `;
 
-type ThemeType = {
+type StoreType = {
   theme: "light" | "dark";
   storeDispatch: React.Dispatch<Action>,
   tableData: {
     header: {};
     data: [];
   },
-  tabData: TabType[]
+  selectedTab: string,
+  tabData: TabType[],
+  query: {}
 };
 
-export const ThemeContext = React.createContext<ThemeType>({
+export const StoreContext = React.createContext<StoreType>({
   theme: "dark",
   storeDispatch: () => {},
   tableData: {
     header: {},
     data: [],
   },
-  tabData: []
+  selectedTab: '',
+  tabData: [],
+  query: {}
 });
 
 function App() {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
   return (
-    <ThemeContext.Provider
+    <StoreContext.Provider
       value={{
         theme: state.theme,
         storeDispatch: dispatch,
         tableData: state.table,
-        tabData: state.tabs
+        tabData: state.tabs,
+        selectedTab: state.selectedTab,
+        query: state.query
       }}
     >
       <AppContainer>
@@ -50,7 +56,7 @@ function App() {
         <RightPanel />
       </AppContainer>
       <GlobalFonts />
-    </ThemeContext.Provider>
+    </StoreContext.Provider>
   );
 }
 

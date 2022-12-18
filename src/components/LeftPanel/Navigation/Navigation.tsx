@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
-import { ThemeContext } from "../../../App";
+import { StoreContext } from "../../../App";
 import { Toggle } from "../../../design/system/Toggle/Toggle";
 import { COLORS } from "../../../design/theme";
 import { Action } from "../../../store/store";
@@ -99,7 +99,7 @@ type NavigationProps = {
 };
 
 export const Navigation = (props: NavigationProps) => {
-  const {theme, tabData, storeDispatch} = React.useContext(ThemeContext);
+  const {theme, tabData, storeDispatch} = React.useContext(StoreContext);
   const navBarRef = React.createRef<HTMLDivElement>();
 
   const [isCollapsed, setIsCollapsed] = useState(false);

@@ -4,7 +4,7 @@ import { Query } from "./Query/Query";
 import { Table } from "./Table/Table";
 import { COLORS } from "../../design/theme";
 import React from "react";
-import { ThemeContext } from "../../App";
+import { StoreContext } from "../../App";
 
 type QueryThemePropsType = {
     currentTheme: "light" | "dark";
@@ -39,7 +39,7 @@ const Executor = styled.div<QueryThemePropsType>`
 `;
 
 export const RightPanel = () => {
-    const { theme } = React.useContext(ThemeContext);
+    const { theme } = React.useContext(StoreContext);
 
   return (
     <ExecutorContainer currentTheme={theme}>
