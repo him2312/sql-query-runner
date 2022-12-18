@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { getTableHeader, TableName } from "../../../data/key_data_mapping";
+import { useContext, useState } from "react";
+import { DATABASE_MAPPING, getTableHeader, TableName } from "../../../data/key_data_mapping";
 import { ts12m, ts14m } from "../../../design/fonts/typography";
 import { COLORS } from "../../../design/theme";
 import TableIcon from "../../../shared/images/database.svg";
 import styled from "styled-components";
+import { ThemeContext } from "../../../App";
 
 type TableType = {
     tableTitle: TableName;
@@ -20,7 +21,7 @@ type TableType = {
     align-items: center;
     padding: 10px 0px;
     ${ts14m}
-    color: ${COLORS.dark.text.primary};
+    color: ${COLORS.light.text.primary};
     cursor: pointer;
     img {
       margin-right: 6px;
@@ -38,18 +39,19 @@ type TableType = {
   
   const MetadataFirst = styled.div`
     text-align: left;
-    color: ${COLORS.dark.text.primary};
+    color: ${COLORS.light.text.primary};
     ${ts12m}
   `
   
   const MetadataLast = styled.div`
     text-align: right;
-    color: ${COLORS.dark.text.primary};
+    color: ${COLORS.light.text.primary};
     ${ts12m}
   `
   
   export const IndividualTable = (props: TableType) => {
     const [tableMetadata, setTableMetadata] = useState({});
+    const {storeDispatch} = useContext(ThemeContext);
   
     const toggleTableData = (tableTitle: TableName) => {
       if (props.selectedTable === tableTitle) {
@@ -59,6 +61,12 @@ type TableType = {
           props.handleClick(tableTitle)
           let tableName = props.tableTitle;
           setTableMetadata(getTableHeader(tableName));
+
+          let tableData = DATABASE_MAPPING[tableName];
+          storeDispatch({
+            type: 'SET_TABLE_DATA',
+            payload: tableData
+          })
       }
     }
   

@@ -41,7 +41,7 @@ const HeaderLeft = styled.div`
 
 const Title = styled.div`
   ${ts14sb}
-  color: ${COLORS.dark.text.primary};
+  color: ${COLORS.light.text.primary};
 `;
 
 const Sync = styled.div`

@@ -1,6 +1,6 @@
 export const COLORS = {
     'background': '#2026d2',
-    'dark': {
+    'light': {
         background: {
             layer1: '#292E37',
             layer2: '#343C43',
@@ -11,6 +11,7 @@ export const COLORS = {
             primary: '#ffffff',
             secondary: '#909396'
         },
+        border: 'rgba(256, 256, 256, 0.2)',
         button: {
             primary: {
                 background: '#ffffff',
@@ -22,7 +23,7 @@ export const COLORS = {
             }
         }
     },
-    'light': {
+    'dark': {
         background: {
             layer1: '#ffffff',
             layer2: '#D4D4D4',
@@ -33,6 +34,7 @@ export const COLORS = {
             primary: '#000000',
             secondary: '#909396'
         },
+        border: 'rgba(0, 0, 0, 0.2)',
         button: {
             primary: {
                 background: '#ffffff',

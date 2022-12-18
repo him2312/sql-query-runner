@@ -95,7 +95,7 @@ const ThemeSwitch = styled.div`
 `;
 
 const ThemeState = styled.div`
-  color: ${COLORS.dark.text.primary};
+  color: ${COLORS.light.text.primary};
   ${ts16r}
   margin-left: 4px;
 `

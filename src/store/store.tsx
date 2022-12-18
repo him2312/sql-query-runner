@@ -1,16 +1,20 @@
 
 export type State = {
-    theme: 'light' | 'dark'
+    theme: 'light' | 'dark',
+    table: {}
 }
 
+export type DISPATCH_TYPE = 'CHANGE_THEME' | 'SET_TABLE_DATA'
+
 export type Action = {
-    type: string,
+    type: DISPATCH_TYPE,
     payload: any
 }
 
 
 export const initialState: State = {
-    theme: 'dark'
+    theme: 'dark',
+    table: {}
 };
 
 export const reducer = (state: State, action: Action) => {
@@ -19,6 +23,14 @@ export const reducer = (state: State, action: Action) => {
             return {
                 ...state,
                 theme: action.payload
+            }
+        case 'SET_TABLE_DATA':
+            console.log('payload', action.payload)
+            return {
+                ...state,
+                table: {
+                    ...action.payload
+                }
             }
         default: 
             return state;

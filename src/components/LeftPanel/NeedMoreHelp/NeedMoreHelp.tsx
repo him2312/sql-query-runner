@@ -9,7 +9,7 @@ const MoreHelpSection = styled.div<NeedHelpProps>`
   justify-content: ${props => props.shrink ? 'center' : 'flex-start'};
   background: #433fb8;
   padding: 14px;
-  color: ${COLORS["dark"].text.primary};
+  color: ${COLORS.light.text.primary};
   ${ts14m}
   cursor: pointer;
   user-select: none;
