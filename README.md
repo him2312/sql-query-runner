@@ -1,46 +1,50 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# SQL Editor
 
-## Available Scripts
+ ## Overview:
+<b>web app capable of running SQL queries and displaying the results of said query</b>
 
-In the project directory, you can run:
+ ## Requirements:
 
-### `npm start`
+### Core
+  - Input area for SQL query
+  - Ability to toggle between queries
+  - Show table corresponding to the query
+  - Infinite scroll on table
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Advanced
+- Autocomplete query with TAB button
+- Keyboard shortcuts (Shift + R => Run query)
+- SQL query to work correctly with help of regex
+- SQL query validation
+- Bookmark a query
+- Ability to resize b/w query and table tabs
+- Dark/Light mode
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Framework & Packages
 
-### `npm test`
+- React
+- Typescript
+- react-split (for split view b/w query and table)
+- react-hot-keys (for keyboard shortcuts)
+- @testing-library/react (unit testing)
+- styled-components (CSS in JSX)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Page load time
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[Lighthouse screenshot](./reports/load-time.png);
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Optimisations
 
-### `npm run eject`
+- Conditionally render elements to reduce DOM load
+- Styled-components adds CSS on demand
+- font-swap to reduce latency
+- add height/width on image to reduce Content-Layout-Shift
+- Lazy loading was not required as all elements are required and on 1 screen
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Best Practices
+- Typescript
+- Unit testing
+[Coverage report](./reports/unit-test-coverage.png);

@@ -102,21 +102,22 @@ export const Collection = () => {
         <HeaderLeft>
           <Toggle
             expand={isCollapsed}
+            data-testid="toggle"
             onClick={() => setIsCollapsed(!isCollapsed)}
           >
-            <img src={DropdownIcon} alt="show all tables" />
+            <img src={DropdownIcon} alt="show all tables" height={12} width={12}/>
           </Toggle>
           <Title>SAVED</Title>
         </HeaderLeft>
         <Sync>
-          <img src={ShareIcon} alt="share collection" />
+          <img src={ShareIcon} alt="share collection" height={16} width={16}/>
         </Sync>
       </Header>
       {!isCollapsed && (
-        <QueryData>
+        <QueryData test-dataid="all-saved-queries">
           {(Object.keys(bookmarkedQuery) as any).map((query: string) => (
             <SavedQuery>
-              <img src={QueryIcon} alt="select" />
+              <img src={QueryIcon} alt="select" height={12} width={30}/>
               <QueryTitle>{query}</QueryTitle>
             </SavedQuery>
           ))}

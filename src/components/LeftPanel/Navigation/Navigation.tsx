@@ -147,15 +147,15 @@ export const Navigation = (props: NavigationProps) => {
         <TopSection shrink={isCollapsed}>
           <TitleSection direction={isCollapsed ? "column" : "row"}>
             <CompanyLogo adjust={isCollapsed}>
-              <img src={AtlanNavLogo} alt="logo" />
+              <img src={AtlanNavLogo} alt="logo" height={22} width={75}/>
             </CompanyLogo>
             {isCollapsed ? (
               <HamburgerSection data-testid="hamburger" onClick={openNavBar}>
-                <img src={Hamburger} alt="more options" />
+                <img src={Hamburger} alt="more options" height={30} width={45}/>
               </HamburgerSection>
             ) : (
               <Minimize data-testid="minimize" onClick={closeNavBar}>
-                <img src={MinimizeIcon} alt="minimize" />
+                <img src={MinimizeIcon} alt="minimize" height={19} width={19}/>
               </Minimize>
             )}
           </TitleSection>
@@ -163,6 +163,7 @@ export const Navigation = (props: NavigationProps) => {
           <Button handleClick={addNewTabToTabGroup} buttonType="primary">
             {isCollapsed ? (
               <img
+                height={30} width={30}
                 style={{ maxWidth: "30px", margin: "auto" }}
                 src={AddButtonMinimal}
                 alt="add query"
@@ -172,6 +173,7 @@ export const Navigation = (props: NavigationProps) => {
                 <img
                   src={AddButton}
                   alt="add query"
+                  height={22} width={22}
                   style={{ marginRight: "5px" }}
                 />
                 New query

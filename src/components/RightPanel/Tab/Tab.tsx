@@ -98,12 +98,12 @@ export const Tab = () => {
         {tabData?.map((tabData) => (
             <TabHead key={tabData.title} currentTheme={theme} onClick={() => openTab(tabData.title)} isSelected={selectedTab === tabData.title}>
                 {tabData.title}
-                <img src={CrossIcon} alt="cross" onClick={() => closeTab(tabData.title)}/>
+                <img src={CrossIcon} alt="cross" onClick={() => closeTab(tabData.title)} height={22} width={22}/>
             </TabHead>
         ))}
        </UserTabGroup>
        <AddNewTab data-testid="add-new-tab" onClick={addNewTabGroup}>
-            <img src={PlusIcon} alt="add new tab" />
+            <img src={PlusIcon} alt="add new tab" height={25} width={25}/>
        </AddNewTab>
       </HotKeys>
     </TabGroup>

@@ -87,12 +87,12 @@ export const TableSelection = () => {
             expand={isCollapsed}
             onClick={() => setIsCollapsed(!isCollapsed)}
           >
-            <img src={DropdownIcon} alt="show all tables" />
+            <img src={DropdownIcon} alt="show all tables" height={12} width={12}/>
           </Toggle>
           <Title>TABLES</Title>
         </HeaderLeft>
         <Sync>
-          <img src={SyncIcon} alt="sync database" />
+          <img src={SyncIcon} alt="sync database" height={20} width={20}/>
         </Sync>
       </Header>
       {!isCollapsed && (

@@ -34,7 +34,7 @@ export const NeedMoreHelp = (props: NeedHelpProps) => {
         <>Help</>
       ) : (
         <>
-          <img src={StarIcon} alt="need more help" />
+          <img src={StarIcon} alt="need more help" height={20} width={20}/>
           Need more help?
         </>
       )}

@@ -79,7 +79,7 @@ type TableType = {
     return (
       <TableRow onClick={() => toggleTableData(props.tableTitle)}>
         <TableHead>
-          <img src={TableIcon} alt="database" />
+          <img src={TableIcon} alt="database" height={20} width={20}/>
           {props.tableTitle}
         </TableHead>
         {isSelected && (

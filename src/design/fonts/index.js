@@ -11,23 +11,27 @@ export const GlobalFonts = createGlobalStyle`
 		src: url('${MontserratRegular}') format('truetype');
 		font-weight: normal;
 		font-style: normal;
+		font-display: swap;
 	}
 	@font-face {
 		font-family: 'mont-medium';
 		src: url('${MontserratMedium}') format('truetype');
 		font-weight: medium;
 		font-style: normal;
+		font-display: swap;
 	}
 	@font-face {
 		font-family: 'mont-semibold';
 		src: url('${MontserratSemiBold}') format('truetype');
 		font-weight: normal;
 		font-style: normal;
+		font-display: swap;
 	}
 	@font-face {
 		font-family: 'mont-bold';
 		src: url('${MontserratBold}') format('truetype');
 		font-weight: bold;
 		font-style: normal;
+		font-display: swap;
 	}
 `;

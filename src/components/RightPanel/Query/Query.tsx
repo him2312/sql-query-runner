@@ -191,13 +191,14 @@ export const Query = () => {
           <Bookmark data-testid="bookmark-cta" onClick={saveQueryToBookmark}>
             {isBookmarked ? (
               <>
-                <img src={BookmarkedIcon} data-testid="bookmarked" alt="bookmarked" />
+                <img src={BookmarkedIcon} data-testid="bookmarked" alt="bookmarked" height={30} width={30}/>
               </>
             ) : (
               <>
                 {
                   <img
                     data-testid="not-bookmarked"
+                    height={30} width={30}
                     src={
                       theme === "light"
                         ? EmptyDarkBookmarkIcon
@@ -228,6 +229,7 @@ export const Query = () => {
               <img
                 src={RunQueryIcon}
                 alt="run query"
+                height={29} width={29}
                 style={{ marginRight: "5px" }}
               />
               Run query

@@ -119,8 +119,8 @@ export const Toggle = (props: ToggleProps) => {
     <ThemeSwitch {...props}>
       <input type="checkbox" name="theme" id="theme-toggle" onChange={toggleState} value={theme}/>
       <label htmlFor="theme-toggle">
-        <img src={SunIcon} alt="light mode" className="sun" />
-        <img src={MoonIcon} alt="dark mode" className="moon" />
+        <img src={SunIcon} alt="light mode" className="sun" height={15} width={15}/>
+        <img src={MoonIcon} alt="dark mode" className="moon" height={15} width={15}/>
       </label>
       {
         !props.shrink && <ThemeState>

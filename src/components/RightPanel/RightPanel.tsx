@@ -42,7 +42,7 @@ export const RightPanel = () => {
     const { theme } = React.useContext(StoreContext);
 
   return (
-    <ExecutorContainer currentTheme={theme}>
+    <ExecutorContainer currentTheme={theme} data-testid="executor">
       <Executor currentTheme={theme}>
         <Split direction="vertical" sizes={[40,60]} minSize={200} style={{ height: '100vh' }}>
           <Query />
