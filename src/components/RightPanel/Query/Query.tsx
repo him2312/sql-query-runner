@@ -47,7 +47,6 @@ const QueryBox = styled.div<QueryThemePropsType>`
       background: ${COLORS[currentTheme].background.layer3};
     `}
 
-    // TODO: Create a new component for textarea and SQL query executor
    textarea { 
     background: transparent;
     resize: none;

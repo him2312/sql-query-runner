@@ -6,6 +6,7 @@ import { Action, initialState, reducer } from "./store/store";
 import { GlobalFonts } from "./design/fonts";
 import {TabType} from './store/store';
 import { TableName } from "./data/key_data_mapping";
+import ErrorBoundary from "./design/system/ErrorBoundary";
 
 const AppContainer = styled.div`
   display: flex;
@@ -46,24 +47,26 @@ function App() {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
   return (
-    <StoreContext.Provider
-      value={{
-        theme: state.theme,
-        storeDispatch: dispatch,
-        tableData: state.table,
-        tabData: state.tabs,
-        selectedTab: state.selectedTab,
-        query: state.query,
-        bookmarkedQuery: state.bookmarkedQuery,
-        currentTable: state.currentTable
-      }}
-    >
-      <AppContainer>
-        <Navigation changeTheme={dispatch} />
-        <RightPanel />
-      </AppContainer>
-      <GlobalFonts />
-    </StoreContext.Provider>
+    <ErrorBoundary>
+      <StoreContext.Provider
+        value={{
+          theme: state.theme,
+          storeDispatch: dispatch,
+          tableData: state.table,
+          tabData: state.tabs,
+          selectedTab: state.selectedTab,
+          query: state.query,
+          bookmarkedQuery: state.bookmarkedQuery,
+          currentTable: state.currentTable
+        }}
+      >
+        <AppContainer>
+          <Navigation changeTheme={dispatch} />
+          <RightPanel />
+        </AppContainer>
+        <GlobalFonts />
+      </StoreContext.Provider>
+    </ErrorBoundary>
   );
 }
 

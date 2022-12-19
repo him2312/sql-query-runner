@@ -128,7 +128,7 @@ export const Table = () => {
       <TableDataContainer currentTheme={theme}>
         <TableHead>
           {(Object.keys(header) as Array<string>).map((title: string) => (
-            <TableHeadRow currentTheme={theme}>{title}</TableHeadRow>
+            <TableHeadRow key={title} currentTheme={theme}>{title}</TableHeadRow>
           ))}
         </TableHead>
         <TableData onScroll={(event) => fetchMoreRows(event.target)}>

@@ -23,6 +23,7 @@ type ButtonContainerProps = {
 const ButtonContainer = styled.button<ButtonContainerProps>`
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 10px;
   border-radius: 8px;
   outline: none;

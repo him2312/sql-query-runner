@@ -44,7 +44,6 @@ export const RightPanel = () => {
   return (
     <ExecutorContainer currentTheme={theme}>
       <Executor currentTheme={theme}>
-        {/* TODO: Revisit the 100px height here */}
         <Split direction="vertical" sizes={[40,60]} minSize={200} style={{ height: '100vh' }}>
           <Query />
           <Table />
