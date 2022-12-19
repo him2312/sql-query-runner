@@ -150,11 +150,11 @@ export const Navigation = (props: NavigationProps) => {
               <img src={AtlanNavLogo} alt="logo" />
             </CompanyLogo>
             {isCollapsed ? (
-              <HamburgerSection onClick={openNavBar}>
+              <HamburgerSection data-testid="hamburger" onClick={openNavBar}>
                 <img src={Hamburger} alt="more options" />
               </HamburgerSection>
             ) : (
-              <Minimize onClick={closeNavBar}>
+              <Minimize data-testid="minimize" onClick={closeNavBar}>
                 <img src={MinimizeIcon} alt="minimize" />
               </Minimize>
             )}
@@ -181,8 +181,8 @@ export const Navigation = (props: NavigationProps) => {
 
           {!isCollapsed && (
             <>
-              <TableSelection />
-              <Collection />
+              <TableSelection/>
+              <Collection/>
             </>
           )}
         </TopSection>

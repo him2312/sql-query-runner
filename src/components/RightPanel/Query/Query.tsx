@@ -187,16 +187,17 @@ export const Query = () => {
     <TabQueryContainer>
       <HotKeys keyName="shift+r, shift+b" onKeyDown={onKeyDown}>
         <Tab />
-        <QueryContainer currentTheme={theme}>
-          <Bookmark onClick={saveQueryToBookmark}>
+        <QueryContainer currentTheme={theme} data-testid="query-box">
+          <Bookmark data-testid="bookmark-cta" onClick={saveQueryToBookmark}>
             {isBookmarked ? (
               <>
-                <img src={BookmarkedIcon} alt="bookmarked" />
+                <img src={BookmarkedIcon} data-testid="bookmarked" alt="bookmarked" />
               </>
             ) : (
               <>
                 {
                   <img
+                    data-testid="not-bookmarked"
                     src={
                       theme === "light"
                         ? EmptyDarkBookmarkIcon
@@ -210,6 +211,7 @@ export const Query = () => {
           </Bookmark>
           <QueryBox currentTheme={theme}>
             <textarea
+              data-testid="query-input"
               value={sqlQuery}
               placeholder="enter SQL query here"
               onKeyDown={(e) => fillCannedResponse(e)}
@@ -218,6 +220,7 @@ export const Query = () => {
           </QueryBox>
           <RunQuery>
             <Button
+              data-testid="query-runner"
               disabled={!SQL_QUERY_VALIDATOR.test(sqlQuery)}
               handleClick={() => executeQuery()}
               buttonType="secondary"

@@ -124,7 +124,7 @@ export const Table = () => {
   }, 100)
 
   return (
-    <TableContainer currentTheme={theme}>
+    <TableContainer currentTheme={theme} data-testid="table-box">
       <TableDataContainer currentTheme={theme}>
         <TableHead>
           {(Object.keys(header) as Array<string>).map((title: string) => (

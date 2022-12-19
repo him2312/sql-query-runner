@@ -10,6 +10,7 @@ type ButtonProps = {
   children: React.ReactNode;
   width?: number;
   disabled?: boolean;
+  'data-testid'?: string,
 };
 
 type ButtonContainerProps = {
@@ -80,6 +81,7 @@ export const Button = (props: ButtonProps) => {
       currentTheme={theme}
       width={props.width}
       disabled={props.disabled}
+      data-testid={props["data-testid"]}
     >
       {props.children}
     </ButtonContainer>

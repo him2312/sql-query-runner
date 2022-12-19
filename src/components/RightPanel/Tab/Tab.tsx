@@ -92,7 +92,7 @@ export const Tab = () => {
   };
 
   return (
-    <TabGroup>
+    <TabGroup data-testid="tab-group">
       <HotKeys keyName="shift+n" onKeyDown={onKeyDown}>
        <UserTabGroup>
         {tabData?.map((tabData) => (
@@ -102,7 +102,7 @@ export const Tab = () => {
             </TabHead>
         ))}
        </UserTabGroup>
-       <AddNewTab onClick={addNewTabGroup}>
+       <AddNewTab data-testid="add-new-tab" onClick={addNewTabGroup}>
             <img src={PlusIcon} alt="add new tab" />
        </AddNewTab>
       </HotKeys>
