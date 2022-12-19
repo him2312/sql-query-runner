@@ -14,6 +14,7 @@ import { NeedMoreHelp } from "../NeedMoreHelp/NeedMoreHelp";
 import { TableSelection } from "../TableSelection/TableSelection";
 import { Collection } from "../Collections/Collections";
 import { addNewTab } from "../../../utils/utils";
+import HotKeys from "react-hot-keys";
 
 const NavigationContainer = styled.div`
   flex: 1;
@@ -99,7 +100,7 @@ type NavigationProps = {
 };
 
 export const Navigation = (props: NavigationProps) => {
-  const {theme, tabData, storeDispatch} = React.useContext(StoreContext);
+  const { theme, tabData, storeDispatch } = React.useContext(StoreContext);
   const navBarRef = React.createRef<HTMLDivElement>();
 
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -124,65 +125,81 @@ export const Navigation = (props: NavigationProps) => {
 
   const addNewTabToTabGroup = () => {
     addNewTab([...tabData], storeDispatch);
-  }
+  };
+
+  const onKeyDown = (keyName: string) => {
+    switch (keyName) {
+      case "shift+f":
+        closeNavBar();
+        break;
+      case "shift+h":
+        openNavBar();
+        break;
+      default:
+        console.log("No shortcut");
+        break;
+    }
+  };
 
   return (
     <NavigationContainer ref={navBarRef}>
-      <TopSection shrink={isCollapsed}>
-        <TitleSection direction={isCollapsed ? "column" : "row"}>
-          <CompanyLogo adjust={isCollapsed}>
-            <img src={AtlanNavLogo} alt="logo" />
-          </CompanyLogo>
-          {isCollapsed ? (
-            <HamburgerSection onClick={openNavBar}>
-              <img src={Hamburger} alt="more options" />
-            </HamburgerSection>
-          ) : (
-            <Minimize onClick={closeNavBar}>
-              <img src={MinimizeIcon} alt="minimize" />
-            </Minimize>
-          )}
-        </TitleSection>
+      <HotKeys keyName="shift+f,shift+h" onKeyDown={onKeyDown}>
+        <TopSection shrink={isCollapsed}>
+          <TitleSection direction={isCollapsed ? "column" : "row"}>
+            <CompanyLogo adjust={isCollapsed}>
+              <img src={AtlanNavLogo} alt="logo" />
+            </CompanyLogo>
+            {isCollapsed ? (
+              <HamburgerSection onClick={openNavBar}>
+                <img src={Hamburger} alt="more options" />
+              </HamburgerSection>
+            ) : (
+              <Minimize onClick={closeNavBar}>
+                <img src={MinimizeIcon} alt="minimize" />
+              </Minimize>
+            )}
+          </TitleSection>
 
-        <Button handleClick={addNewTabToTabGroup} buttonType="primary">
-          {isCollapsed ? (
-            <img
-              style={{ maxWidth: "30px", margin: "auto" }}
-              src={AddButtonMinimal}
-              alt="add query"
-            />
-          ) : (
-            <>
+          <Button handleClick={addNewTabToTabGroup} buttonType="primary">
+            {isCollapsed ? (
               <img
-                src={AddButton}
+                style={{ maxWidth: "30px", margin: "auto" }}
+                src={AddButtonMinimal}
                 alt="add query"
-                style={{ marginRight: "5px" }}
               />
-              New query
+            ) : (
+              <>
+                <img
+                  src={AddButton}
+                  alt="add query"
+                  style={{ marginRight: "5px" }}
+                />
+                New query
+              </>
+            )}
+          </Button>
+
+          {!isCollapsed && (
+            <>
+              <TableSelection />
+              <Collection />
             </>
           )}
-        </Button>
+        </TopSection>
 
-        {!isCollapsed && (
-          <>
-            <TableSelection />
-            <Collection />
-          </>
-        )}
-      </TopSection>
-
-      <BottomSection>
-        <Toggle
-          shrink={isCollapsed}
-          handleClick={() =>
-            props.changeTheme({
-              type: "CHANGE_THEME",
-              payload: theme === "dark" ? "light" : "dark",
-            })
-          }
-        />
-        <NeedMoreHelp shrink={isCollapsed} />
-      </BottomSection>
+        <BottomSection>
+          <Toggle
+            shrink={isCollapsed}
+            handleClick={() =>
+              props.changeTheme({
+                type: "CHANGE_THEME",
+                payload: theme === "dark" ? "light" : "dark",
+              })
+            }
+          />
+          <NeedMoreHelp shrink={isCollapsed} />
+        </BottomSection>
+      </HotKeys>
     </NavigationContainer>
   );
 };

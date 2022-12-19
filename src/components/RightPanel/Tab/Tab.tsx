@@ -7,6 +7,7 @@ import { StoreContext } from "../../../App";
 import { ts12m } from "../../../design/fonts/typography";
 import { DUMMY_TAB_DATA } from "../../../data/tab_data";
 import { addNewTab, removeTab } from "../../../utils/utils";
+import HotKeys from "react-hot-keys";
 
 type QueryThemePropsType = {
     currentTheme: "light" | "dark",
@@ -79,8 +80,20 @@ export const Tab = () => {
     removeTab([...tabData], tabTitle, storeDispatch);
   }
 
+  const onKeyDown = (keyName: string) => {
+    switch (keyName) {
+      case 'shift+n':
+        addNewTabGroup();
+        break;
+      default:
+        console.log('No shortcut');
+        break;
+    }
+  };
+
   return (
     <TabGroup>
+      <HotKeys keyName="shift+n" onKeyDown={onKeyDown}>
        <UserTabGroup>
         {tabData?.map((tabData) => (
             <TabHead key={tabData.title} currentTheme={theme} onClick={() => openTab(tabData.title)} isSelected={selectedTab === tabData.title}>
@@ -92,6 +105,7 @@ export const Tab = () => {
        <AddNewTab onClick={addNewTabGroup}>
             <img src={PlusIcon} alt="add new tab" />
        </AddNewTab>
+      </HotKeys>
     </TabGroup>
   );
 };
