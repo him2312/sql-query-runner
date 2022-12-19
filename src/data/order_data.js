@@ -8012,5 +8012,5 @@ const ORDER_TABLE_DATA = [
 
 export const ORDER_TABLE = {
   header: ORDER_TABLE_TITLE,
-  data: ORDER_TABLE_DATA,
+  data: ORDER_TABLE_DATA
 };

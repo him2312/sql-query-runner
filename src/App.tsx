@@ -5,6 +5,7 @@ import React from "react";
 import { Action, initialState, reducer } from "./store/store";
 import { GlobalFonts } from "./design/fonts";
 import {TabType} from './store/store';
+import { TableName } from "./data/key_data_mapping";
 
 const AppContainer = styled.div`
   display: flex;
@@ -23,7 +24,8 @@ type StoreType = {
   selectedTab: string,
   tabData: TabType[],
   query: {},
-  bookmarkedQuery: {}
+  bookmarkedQuery: {},
+  currentTable: TableName
 };
 
 export const StoreContext = React.createContext<StoreType>({
@@ -36,7 +38,8 @@ export const StoreContext = React.createContext<StoreType>({
   selectedTab: '',
   tabData: [],
   query: {},
-  bookmarkedQuery: []
+  bookmarkedQuery: [],
+  currentTable: 'users'
 });
 
 function App() {
@@ -51,7 +54,8 @@ function App() {
         tabData: state.tabs,
         selectedTab: state.selectedTab,
         query: state.query,
-        bookmarkedQuery: state.bookmarkedQuery
+        bookmarkedQuery: state.bookmarkedQuery,
+        currentTable: state.currentTable
       }}
     >
       <AppContainer>

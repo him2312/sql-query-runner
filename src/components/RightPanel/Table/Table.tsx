@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { StoreContext } from "../../../App";
-import { DATABASE_TYPE } from "../../../data/key_data_mapping";
+import { DATABASE_TYPE, getNextPageData } from "../../../data/key_data_mapping";
 import { COLORS } from "../../../design/theme";
 import { ts12m, ts14m } from "../../../design/fonts/typography";
+import { computeScrollPercentage, debounce, FETCH_NEXT_PAGE_POST_AT_SCROLL } from "../../../utils/utils";
 
 type QueryThemePropsType = {
   currentTheme: "light" | "dark";
@@ -81,10 +82,46 @@ const TableRowData = styled.div<QueryThemePropsType>`
     `}
 `;
 
+const Loading = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  padding: 10px 5px;
+`
+
 export const Table = () => {
-  const { theme, tableData } = React.useContext(StoreContext);
+  const { theme, tableData, currentTable, storeDispatch } = React.useContext(StoreContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const { header = [], data = [] } = tableData;
+
+  const fetchMoreRows = debounce((element: EventTarget) => {
+    let scrollPercentage = computeScrollPercentage(element);
+
+    if (scrollPercentage >= FETCH_NEXT_PAGE_POST_AT_SCROLL) {
+      setIsLoading(true);
+      setCurrentPage(currentPage + 1); 
+      let nextPageData = getNextPageData(currentTable ,currentPage + 1);
+
+      if (nextPageData.length) {
+        storeDispatch({
+          type: 'SET_TABLE_DATA',
+          payload: {
+            ...tableData,
+            data: [
+              ...tableData.data,
+              ...nextPageData
+            ]
+          }
+        })
+      } else {
+        setIsLoading(false);
+      }
+
+    }
+  }, 100)
 
   return (
     <TableContainer currentTheme={theme}>
@@ -94,7 +131,7 @@ export const Table = () => {
             <TableHeadRow currentTheme={theme}>{title}</TableHeadRow>
           ))}
         </TableHead>
-        <TableData>
+        <TableData onScroll={(event) => fetchMoreRows(event.target)}>
           {data.map((value: DATABASE_TYPE, index) => (
             <TableRow key={index}>
               {(Object.values(value) as Array<string>).map((data) => (
@@ -102,6 +139,9 @@ export const Table = () => {
               ))}
             </TableRow>
           ))}
+           {
+          isLoading && <Loading>Loading...</Loading>
+        }
         </TableData>
       </TableDataContainer>
     </TableContainer>

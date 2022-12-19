@@ -108,6 +108,10 @@ export const Query = () => {
       type: 'SET_TABLE_DATA',
       payload: filteredTableData
     })
+    storeDispatch({
+      type: 'SET_CURRENT_TABLE',
+      payload: result?.tableName
+    })
     saveQueryForTab(sqlQuery, filteredTableData);
   }
 

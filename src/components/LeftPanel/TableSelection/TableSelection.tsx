@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
-import {
-  DATABASE_MAPPING,
-  TableName,
-} from "../../../data/key_data_mapping";
+import styled, { css } from "styled-components";
+import { DATABASE_MAPPING, TableName } from "../../../data/key_data_mapping";
 import { ts14sb } from "../../../design/fonts/typography";
 import { COLORS } from "../../../design/theme";
 import DropdownIcon from "../../../shared/images/down-arrow.svg";
@@ -14,8 +11,13 @@ const TableSelectionContainer = styled.div`
   margin-top: 30px;
 `;
 
-const Toggle = styled.div`
+type ToggleType = {
+  expand: boolean;
+};
+
+const Toggle = styled.div<ToggleType>`
   cursor: pointer;
+  transition: 0.3s;
   :active {
     opacity: 0.7;
     transform: scale(0.97);
@@ -23,8 +25,13 @@ const Toggle = styled.div`
   img {
     width: 12px;
     height: 12px;
-    margin-right: 8px;
   }
+
+  ${({ expand }) =>
+    expand &&
+    css`
+      transform: rotate(180deg);
+    `}
 `;
 
 const Header = styled.div`
@@ -42,6 +49,7 @@ const HeaderLeft = styled.div`
 const Title = styled.div`
   ${ts14sb}
   color: ${COLORS.light.text.primary};
+  margin-left: 8px;
 `;
 
 const Sync = styled.div`
@@ -64,6 +72,7 @@ const DataContainer = styled.div``;
 export const TableSelection = () => {
   const [allTables, setAllTables] = useState<TableName[]>([]);
   const [selectedTable, setSelectedTable] = useState<TableName | null>(null);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   useEffect(() => {
     let allTables = Object.keys(DATABASE_MAPPING) as Array<TableName>;
@@ -74,7 +83,10 @@ export const TableSelection = () => {
     <TableSelectionContainer>
       <Header>
         <HeaderLeft>
-          <Toggle>
+          <Toggle
+            expand={isCollapsed}
+            onClick={() => setIsCollapsed(!isCollapsed)}
+          >
             <img src={DropdownIcon} alt="show all tables" />
           </Toggle>
           <Title>TABLES</Title>
@@ -83,16 +95,18 @@ export const TableSelection = () => {
           <img src={SyncIcon} alt="sync database" />
         </Sync>
       </Header>
-      <DataContainer>
-        {allTables.map((table, index) => (
-          <IndividualTable
-            key={index}
-            handleClick={setSelectedTable}
-            tableTitle={table}
-            selectedTable={selectedTable}
-          />
-        ))}
-      </DataContainer>
+      {!isCollapsed && (
+        <DataContainer>
+          {allTables.map((table, index) => (
+            <IndividualTable
+              key={index}
+              handleClick={setSelectedTable}
+              tableTitle={table}
+              selectedTable={selectedTable}
+            />
+          ))}
+        </DataContainer>
+      )}
     </TableSelectionContainer>
   );
 };

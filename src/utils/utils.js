@@ -43,3 +43,13 @@ export const debounce = (func, timeout = 1000) => {
     timer = setTimeout(() => { func.apply(this, args); }, timeout);
   };
 }
+
+export const FETCH_NEXT_PAGE_POST_AT_SCROLL = 90;
+
+export const computeScrollPercentage = (element) => {
+    if (element === null) {
+        return NaN;
+      }
+      const height = element.scrollHeight - element.clientHeight;
+      return Math.round((element.scrollTop / height) * 100);
+}

@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { DATABASE_MAPPING, getTableHeader, TableName } from "../../../data/key_data_mapping";
+import { getInitialTableData, getTableHeader, TableName } from "../../../data/key_data_mapping";
 import { ts12m, ts14m } from "../../../design/fonts/typography";
 import { COLORS } from "../../../design/theme";
 import TableIcon from "../../../shared/images/database.svg";
@@ -62,10 +62,15 @@ type TableType = {
           let tableName = props.tableTitle;
           setTableMetadata(getTableHeader(tableName));
 
-          let tableData = DATABASE_MAPPING[tableName];
+          let tableData = getInitialTableData(tableName);
           storeDispatch({
             type: 'SET_TABLE_DATA',
             payload: tableData
+          })
+
+          storeDispatch({
+            type: 'SET_CURRENT_TABLE',
+            payload: tableName
           })
       }
     }

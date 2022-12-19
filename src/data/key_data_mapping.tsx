@@ -18,6 +18,19 @@ export const getTableData = (tableName: TableName) => {
     return DATABASE_MAPPING[tableName].data;
 }
 
+export const getNextPageData = (tableName: TableName, nextPage: number) => {
+    let start = nextPage * 100;
+    let end = start + 100;
+    return DATABASE_MAPPING[tableName].data.slice(start, end);
+}
+
+export const getInitialTableData = (tableName: TableName) => {
+    return {
+        header: getTableHeader(tableName),
+        data: getNextPageData(tableName, 0)
+    }
+}
+
 export type ORDER_DATA_TYPE = {
     id: number,
     order_id: string,
