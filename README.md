@@ -4,6 +4,8 @@
  ## Overview:
 <b>web app capable of running SQL queries and displaying the results of said query</b>
 
+Live: [https://sql-query-runner-topaz.vercel.app/](https://sql-query-runner-topaz.vercel.app/)
+
  ## Requirements:
 
 ### Core
