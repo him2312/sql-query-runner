@@ -33,7 +33,7 @@
 
 ## Page load time
 
-[Lighthouse screenshot](./reports/load-time.png);
+![Lighthouse screenshot](./reports/load-time.png)
 
 
 ## Optimisations
@@ -47,4 +47,4 @@
 ## Best Practices
 - Typescript
 - Unit testing
-[Coverage report](./reports/unit-test-coverage.png);
+![Coverage report](./reports/unit-test-coverage.png)
